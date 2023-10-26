@@ -1,0 +1,23 @@
+version: '3.7'
+services:
+  nest:
+    container_name: nestjs_api
+    build: .
+    tty: true
+    ports:
+      - '3000:3000'
+    volumes:
+      - type: bind
+        source: .
+        target: /api
+  db:
+    container_name: db-container
+    image: postgres:15
+    platform: linux/amd64
+    environment:
+      POSTGRES_DB: mydb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      TZ: 'Asia/Tokyo'
+    ports:
+      - '5432:5432'
