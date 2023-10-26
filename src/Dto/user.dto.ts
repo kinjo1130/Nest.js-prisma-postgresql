@@ -1,4 +1,4 @@
-export type UpdateUser = {
+export type UpdateUserDto = {
   userId: number;
   user: {
     email?: string;

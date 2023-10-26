@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PrismaClient, Users } from '@prisma/client';
+import { UpdateUserDto } from './Dto/user.dto';
 
 @Injectable()
 export class AppService {
@@ -18,12 +19,19 @@ export class AppService {
     Logger.log(res);
     return res;
   }
-  updateUser(userId: number, user: Users) {
+  updateUser(
+    userId: number,
+    user: { email?: string; name?: string; hashedPassword?: string },
+  ) {
+    console.log(user);
     return this.prisma.users.update({
       where: {
         id: userId,
       },
-      data: user,
+      data: {
+        ...user,
+        updatedAt: new Date(),
+      },
     });
   }
 }
